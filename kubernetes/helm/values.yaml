@@ -1,0 +1,8 @@
+appName: tengen-tetris
+namespace: default
+
+image:
+  name: docker.io/davidl21/tengen-tetris
+  tag: latest
+
+replicas: 1

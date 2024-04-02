@@ -1,0 +1,14 @@
+# add namespace when get cluster access
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ""
+  capacity:
+    storage: 5Gi
+  hostPath:
+    path: "/mnt/data"
