@@ -29,10 +29,8 @@ how to install it on any other Linux box.
 2. Clone this repo with `git clone`
 3. This runs on Python 3, so be sure to have that installed
 4. Be sure to have `pip3` package for Python 3 dependencies installation, on Ubuntu this can be installed by running `apt install python3-pip`.
-With it, install the following dependencies:
-  * `pip3 install flask`
-  * `pip3 install flask_socketio`
-  * `pip3 install gevent-websockets`
+With it, run pip3 on requirements package file named requirements.txt:
+  * `pip3 install -r requirements.txt`
 
 
 5. Run the server with `python3 application.py` or run it on the background with `nohup python3 application.py > out.log &`
