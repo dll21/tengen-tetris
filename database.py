@@ -1,13 +1,16 @@
+
+import logging 
+
 from sqlite3 import Error, connect
 
 class Database:
 	def __init__(self):
-		self.filename = 'database.db'
+		self.filename = './db/database.db'
 
 	# Initializes the database.
 	def initialize(self):
 		if not self.initialized():
-			print('Initializing database')
+			logging.info('Initializing database')
 			query = """CREATE TABLE solo (
 					'username' VARCHAR(45) NOT NULL DEFAULT '',
 					'high' INT unsigned DEFAULT NULL,
@@ -19,7 +22,7 @@ class Database:
 				PRIMARY KEY ('username'));"""
 			self.executeQuery(query)
 		else:
-			print('Database already initialized')
+			logging.info('Database already initialized')
 		return True
 
 	# Decides if the database is initalized already.
@@ -37,8 +40,8 @@ class Database:
 		try:
 			connection = connect(self.filename)
 		except Error as error:
-			print('DATABASE ERROR: could not open a connection to the database')
-			print(Error)
+			logging.error('DATABASE ERROR: could not open a connection to the database')
+			logging.error(Error)
 			return None
 
 		# Execute the query.
@@ -47,8 +50,8 @@ class Database:
 			cursor.execute(query, tuple)
 			result = cursor.fetchall()
 		except Error as error:
-			print('DATABASE ERROR: could not execute the query')
-			print(Error)
+			logging.error('DATABASE ERROR: could not execute the query')
+			logging.error(Error)
 			return None
 
 		# Commit the changes and close the connection.
@@ -56,8 +59,8 @@ class Database:
 			connection.commit()
 			connection.close()
 		except Error as error:
-			print('DATABASE ERROR: could not close connection to the database')
-			print(Error)
+			logging.error('DATABASE ERROR: could not close connection to the database')
+			logging.error(Error)
 			return None
 
 		return result
@@ -69,13 +72,13 @@ class Database:
 		if resultSolo == None or resultDuo == None:
 			return False
 
-		print('DATABASE STATUS:')
-		print('Table solo:')
+		logging.info('DATABASE STATUS:')
+		logging.info('Table solo:')
 		for row in resultSolo:
-			print(row)
-		print('Table duo:')
+			logging.info(row)
+		logging.info('Table duo:')
 		for row in resultDuo:
-			print(row)
+			logging.info(row)
 
 	# Get the current high score for the username and mode provided.
 	def getHighScore(self, username, mode):
@@ -88,21 +91,21 @@ class Database:
 
 		# Check if the result obtained is valid.
 		if result == None:
-			print('DATABASE ERROR: could not query current high score of username {}, mode {}'.format(username, mode))
+			logging.error('DATABASE ERROR: could not query current high score of username {}, mode {}'.format(username, mode))
 			return None
 
 		# This username is not in the database.
 		if len(list(result)) == 0:
 			return None
 		else:
-			print(result)
+			logging.info(result)
 			return result[0][1]
 
 	# Function called when a username wants to submit a high score.
 	def submitHighScore(self, username, mode, score):
 		# Check that the arguments are valid.
 		if not (type(username) is str and type(mode) is str and type(score) is int):
-			print('DATABASE ERROR: invalid arguments to insert high score')
+			logging.error('DATABASE ERROR: invalid arguments to insert high score')
 			return False
 
 		# Query the high score in the database.
@@ -143,7 +146,7 @@ class Database:
 		result = self.executeQuery(query)
 
 		if result == None:
-			print('DATABASE: cannot send back the scores')
-			print(Error)
+			logging.error('DATABASE: cannot send back the scores')
+			logging.error(Error)
 
 		return result

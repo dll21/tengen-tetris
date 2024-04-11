@@ -1,5 +1,7 @@
+import logging
 from random import random
 from math import floor
+
 from flask_socketio import join_room, leave_room, emit
 
 class Room:
@@ -27,19 +29,19 @@ class Room:
 			self.ids[2] = socketId
 			player = 2
 		else:
-			print('ERROR: cannot join client to room {}. The room is full'.format(self.name))
+			logging.error('ERROR: cannot join client to room {}. The room is full'.format(self.name))
 			return False
 
 		# Join this socket id to the web sockets room.
 		join_room(self.name)
-		print('Client {} accepted in room {}'.format(socketId, self.name))
+		logging.info('Client {} accepted in room {}'.format(socketId, self.name))
 
 		# Tell the user to wait or tell both to begin new game.
 		if player == 1:
-			print('Room not full, sending wait message')
+			logging.info('Room not full, sending wait message')
 			emit('waitingForAnotherPlayer', {}, room=socketId)
 		elif player == 2:
-			print('Room full, sending begin message')
+			logging.info('Room full, sending begin message')
 			self.beginDuoGame()
 
 	# A player in this room has disconnected. Empty the room.
@@ -54,7 +56,7 @@ class Room:
 		self.position[1] = 0
 		self.position[2] = 0
 
-		print('Disconnected both players in room {}. Room is currently empty'.format(self.name))
+		logging.info('Disconnected both players in room {}. Room is currently empty'.format(self.name))
 
 	# Returns the number of players currently in the room.
 	def numPlayers(self):
@@ -89,8 +91,8 @@ class Room:
 
 	# Logs the pieces in this room to the terminal.
 	def logPieces(self):
-		print('Current pieces in room {}:'.format(self.name))
-		print(self.pieces)
+		logging.info('Current pieces in room {}:'.format(self.name))
+		logging.info(self.pieces)
 
 	# Starts the duo game.
 	def beginDuoGame(self):
@@ -117,7 +119,7 @@ class Room:
 	def bounce(self, socketId, message, data):
 		adversarySocketId = self.getAdversarySocketId(socketId)
 		if adversarySocketId == None:
-			print('ERROR: cannot bounce message')
+			logging.error('ERROR: cannot bounce message')
 			return False
 
 		emit(message, data, room=adversarySocketId)
@@ -128,7 +130,7 @@ class Room:
 		# Get the player number of this socket id.
 		player = self.getPlayerNumber(socketId)
 		if player == None:
-			print('ERROR: cannot handle next batch request. Player unknown')
+			logging.error('ERROR: cannot handle next batch request. Player unknown')
 			return False
 
 		# If I do not have the ten next pieces ready, create as many as needed.

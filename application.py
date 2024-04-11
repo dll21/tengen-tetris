@@ -1,4 +1,8 @@
+import sys
+import logging 
+
 from flask import Flask, render_template, request
+from flask_cors import CORS
 from flask_socketio import SocketIO
 
 from master import Master
@@ -103,4 +107,7 @@ def submit(data):
 # Run the app with web sockets capabilities.
 if __name__ == '__main__':
 	app.debug = True
+	handler = logging.StreamHandler(sys.stdout)
+	if not app.logger.handlers:
+		app.logger.addHandler(handler)
 	socketio.run(app, host='0.0.0.0', port=8080)

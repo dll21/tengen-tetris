@@ -1,3 +1,4 @@
+import logging
 from flask_socketio import emit
 
 from room import Room
@@ -19,7 +20,7 @@ class Master:
 
 	# Logs an incoming message to the terminal.
 	def logMessage(self, message, socketId):
-		print('--> Received {} from {}'.format(message, socketId))
+		logging.info('--> Received {} from {}'.format(message, socketId))
 
 	# Bounces a message from a player to its adversary.
 	def bounce(self, socketId, message, data):
@@ -42,7 +43,7 @@ class Master:
 
 		# If no room is available, notify the client.
 		if availableRoom == None:
-			print('All rooms are currently full')
+			logging.info('All rooms are currently full')
 			emit('allRoomsFull', {}, room=socketId)
 			return False
 
@@ -54,7 +55,7 @@ class Master:
 		# Find the room of this socket id.
 		room = self.getRoom(socketId)
 		if room == None:
-			print('Disconnect: this socket id does not belong to any room')
+			logging.info('Disconnect: this socket id does not belong to any room')
 			return False
 
 		return room.disconnect()

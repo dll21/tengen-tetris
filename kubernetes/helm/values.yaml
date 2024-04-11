@@ -3,6 +3,6 @@ namespace: default
 
 image:
   name: docker.io/davidl21/tengen-tetris
-  tag: latest
+  tag: 0.0.1
 
 replicas: 1

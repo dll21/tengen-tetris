@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tengen-tetris
+  labels:
+    app: tengen-tetris
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tengen-tetris
+  template:
+    metadata:
+      labels:
+        app: tengen-tetris
+    spec:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+      containers:
+      - name: tengen-tetris
+        image: docker.io/davidl21/tengen-tetris:0.0.3
+        ports:
+        - containerPort: 80
+          name: web
+        # volumeMounts:
+        # - name: sqlite-storage
+        #   mountPath: /app/db  
+      # volumes:
+      # - name: sqlite-storage
+      #   persistentVolumeClaim:
+      #     claimName: tengen-tetris-pvc 
