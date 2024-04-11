@@ -1,8 +1,8 @@
 appName: tengen-tetris
-namespace: default
+namespace: challenger-002
 
 image:
   name: docker.io/davidl21/tengen-tetris
-  tag: 0.0.1
+  tag: 0.0.2
 
 replicas: 1
