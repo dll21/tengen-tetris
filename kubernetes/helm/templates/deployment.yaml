@@ -2,10 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
   labels:
     app:  {{ .Values.appName }}
 spec:
-  replicas:  {{ .Values.replicas }}
+  replicas:  {{ .Values.deployment.replicas }}
   selector:
     matchLabels:
       app:  {{ .Values.appName }}
@@ -16,7 +17,10 @@ spec:
     spec:
       containers:
       - name:  {{ .Values.appName }}
-        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 80
           name: web
+        envFrom:
+        - configMapRef :
+            name: {{ .Values.configmap.name }}

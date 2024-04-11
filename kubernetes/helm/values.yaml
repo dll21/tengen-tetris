@@ -1,8 +1,15 @@
 appName: tengen-tetris
 namespace: challenger-002
 
+configmap:
+  name: tengen-tetris
+  data:
+    APP_HOST: "0.0.0.0"
+    APP_PORT: "8080"
+
 image:
   name: docker.io/davidl21/tengen-tetris
-  tag: 0.0.2
+  tag: 0.0.3
 
-replicas: 1
+deployment:
+  replicas: 1

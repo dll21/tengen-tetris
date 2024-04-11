@@ -1,11 +1,14 @@
 import sys
+import os
 import logging 
 
 from flask import Flask, render_template, request
-from flask_cors import CORS
 from flask_socketio import SocketIO
 
 from master import Master
+
+APP_HOST = os.getenv("APP_HOST")
+APP_PORT = os.getenv("APP_PORT")
 
 # Initialize the flask app.
 app = Flask(__name__)
@@ -110,4 +113,4 @@ if __name__ == '__main__':
 	handler = logging.StreamHandler(sys.stdout)
 	if not app.logger.handlers:
 		app.logger.addHandler(handler)
-	socketio.run(app, host='0.0.0.0', port=8080)
+	socketio.run(app, host=APP_HOST, port=APP_PORT)
