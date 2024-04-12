@@ -1,6 +1,10 @@
-build:
+docker-build:
 	docker build -t tengen-tetris .
-up:
+docker-up:
 	docker run -p 80:8080 tengen-tetris
-helm:
-	helm install tengen-tetris-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace challenger-002
+# make helm-install RELEASE=tengen-tetris-release-n NAMESPACE=default
+helm-install:
+	helm install  $(RELEASE) kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  $(NAMESPACE)
+# make helm-upgrade RELEASE=tengen-tetris-release-n NAMESPACE=default
+helm-upgrade:
+	helm upgrade  $(RELEASE) kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  $(NAMESPACE)

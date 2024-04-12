@@ -1,15 +1,23 @@
+# app name
 appName: tengen-tetris
+# namespace
 namespace: challenger-002
 
+# configmap resource
 configmap:
   name: tengen-tetris
   data:
-    APP_HOST: "0.0.0.0"
-    APP_PORT: "8080"
+    # serverHost is the host name for the webserver
+    serverHost: 0.0.0.0
+    # serverPort is the HTTP listener port for the webserver
+    serverPort: 8080
 
+# image info
 image:
   name: docker.io/davidl21/tengen-tetris
   tag: 0.0.3
 
+# deployment resource
 deployment:
+  # number of replicar for deployment
   replicas: 1
