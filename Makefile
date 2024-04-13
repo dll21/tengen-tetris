@@ -5,6 +5,9 @@ docker-up:
 # make helm-install RELEASE=tengen-tetris-release-n NAMESPACE=default
 helm-install:
 	helm install  $(RELEASE) kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  $(NAMESPACE)
+# make helm-uninstall RELEASE=tengen-tetris-release-n NAMESPACE=default
+helm-uninstall:
+	helm uninstall  $(RELEASE)  --namespace  $(NAMESPACE)
 # make helm-upgrade RELEASE=tengen-tetris-release-n NAMESPACE=default
 helm-upgrade:
 	helm upgrade  $(RELEASE) kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  $(NAMESPACE)

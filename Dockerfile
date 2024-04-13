@@ -9,7 +9,8 @@ WORKDIR /app
 # Actualizar pip y instalar las dependencias de Python
 COPY requirements.txt .
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt && \
+    rm -rf /root/.cache/pip
 
 COPY . .
 

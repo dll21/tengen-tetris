@@ -36,3 +36,23 @@ With it, run pip3 on requirements package file named requirements.txt:
 5. Run the server with `python3 application.py` or run it on the background with `nohup python3 application.py > out.log &`
 6. Open a web browser and connect to `localhost:8080`. If you can see a page, everything has worked fine.
 7. Find out the IP address of your box by running `ip a`, and, from another computer within the same network, connect to `<ip>:8080`.
+
+## How to run it with docker
+
+1.- build docker image 
+```docker build -t tengen-tetris .```
+
+2.- run docker image
+```docker run -p 8080:8080 tengen-tetris```
+
+app will run on localhost:8080
+
+## How to run it on kubernetes via helm chart
+- install helm chart 
+`helm install  my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default`
+
+- upgrade helm chart
+`helm upgrade my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default`
+
+- uninstall helm chart
+`helm uninstall  my-release-1  --namespace  default`

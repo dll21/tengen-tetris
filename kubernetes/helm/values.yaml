@@ -1,8 +1,7 @@
 # app name
 appName: tengen-tetris
 # namespace
-namespace: challenger-002
-
+namespace: default
 # configmap resource
 configmap:
   name: tengen-tetris
@@ -13,7 +12,7 @@ configmap:
     serverPort: 8080
 
 # image info
-image:
+image: 
   name: docker.io/davidl21/tengen-tetris
   tag: 0.0.3
 
