@@ -56,17 +56,26 @@ app will run on localhost:8080
 ```
 helm install  my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default
 ```
-
+using make
+```
+make helm-install RELEASE=tengen-tetris-release-1 NAMESPACE=default
+```
 - upgrade helm chart
 ```
 helm upgrade my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default
 ```
-
+using make
+```
+make helm-upgrade RELEASE=tengen-tetris-release-n NAMESPACE=default
+```
 - uninstall helm chart
 ```
-helm uninstall  my-release-1  --namespace  default
+helm uninstall  my-release-n  --namespace  default
 ```
-
+using make
+```
+make helm-uninstall RELEASE=tengen-tetris-release-n NAMESPACE=default
+```
 ##
 In the 'docs' folder, you will find comprehensive documentation outlining the technical decisions made for deploying our web application on Kubernetes.
 ##
