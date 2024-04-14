@@ -40,19 +40,29 @@ With it, run pip3 on requirements package file named requirements.txt:
 ## How to run it with docker
 
 1.- build docker image 
-```docker build -t tengen-tetris .```
+```
+docker build -t tengen-tetris .
+```
 
 2.- run docker image
-```docker run -p 8080:8080 tengen-tetris```
+```
+docker run -p 8080:8080 tengen-tetris
+```
 
 app will run on localhost:8080
 
 ## How to run it on kubernetes via helm chart
 - install helm chart 
-`helm install  my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default`
+```
+helm install  my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default
+```
 
 - upgrade helm chart
-`helm upgrade my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default`
+```
+helm upgrade my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml  --namespace  default
+```
 
 - uninstall helm chart
-`helm uninstall  my-release-1  --namespace  default`
+```
+helm uninstall  my-release-1  --namespace  default
+```

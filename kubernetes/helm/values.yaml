@@ -10,13 +10,35 @@ configmap:
     serverHost: 0.0.0.0
     # serverPort is the HTTP listener port for the webserver
     serverPort: 8080
-
+# ingress config
+ingress:
+  host: "tengen-tetris.com"
+  className: nginx
 # image info
-image: 
+image:
   name: docker.io/davidl21/tengen-tetris
   tag: 0.0.3
-
 # deployment resource
 deployment:
-  # number of replicar for deployment
+  # number of replicas for deployment
   replicas: 1
+  # resource limits and requests
+  resources:
+    limits:
+      cpu: "1"
+      memory: "512Mi"
+    requests:
+      cpu: "0.5"
+      memory: "256Mi"
+  # deployment strategy
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+# pod specific configurations
+podConfig:
+  # security context
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000

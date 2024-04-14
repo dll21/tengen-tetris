@@ -19,8 +19,23 @@ spec:
       - name:  {{ .Values.appName }}
         image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
         ports:
-        - containerPort: {{ .Values.configmap.data.serverPort  }}
+        - containerPort: {{ .Values.configmap.data.serverPort }}
           name: web
         envFrom:
-        - configMapRef :
+        - configMapRef:
             name: {{ .Values.configmap.name }}
+        resources:
+          limits:
+            cpu: "{{ .Values.deployment.resources.limits.cpu }}"
+            memory: "{{ .Values.deployment.resources.limits.memory }}"
+          requests:
+            cpu: "{{ .Values.deployment.resources.requests.cpu }}"
+            memory: "{{ .Values.deployment.resources.requests.memory }}"
+      securityContext:
+        runAsUser: {{ .Values.podConfig.securityContext.runAsUser }}
+        runAsGroup: {{ .Values.podConfig.securityContext.runAsGroup }}
+      strategy:
+        type: {{ .Values.deployment.strategy.type }}
+        rollingUpdate:
+          maxSurge: {{ .Values.deployment.strategy.rollingUpdate.maxSurge }}
+          maxUnavailable: {{ .Values.deployment.strategy.rollingUpdate.maxUnavailable }}

@@ -6,9 +6,9 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
+  ingressClassName:  {{ .Values.ingress.className }}
   rules:
-  - host: "tengen-tetris.com"
+  - host: {{ .Values.ingress.host }}
     http:
       paths:
       - path: /
