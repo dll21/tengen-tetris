@@ -66,3 +66,7 @@ helm upgrade my-release-1 kubernetes/helm/ --values kubernetes/helm/values.yaml 
 ```
 helm uninstall  my-release-1  --namespace  default
 ```
+
+##
+In the 'docs' folder, you will find comprehensive documentation outlining the technical decisions made for deploying our web application on Kubernetes.
+##
