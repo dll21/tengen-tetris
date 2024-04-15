@@ -1,0 +1,158 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema#",
+    "title": "Tengen Tetris Helm Values Schema",
+    "type": "object",
+    "properties": {
+      "appName": {
+        "type": "string",
+        "description": "The name of the application."
+      },
+      "namespace": {
+        "type": "string",
+        "description": "Kubernetes namespace where the resources will be deployed."
+      },
+      "configmap": {
+        "type": "object",
+        "description": "Configuration map for the application.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the ConfigMap."
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "serverHost": {
+                "type": "string",
+                "description": "The hostname for the web server."
+              },
+              "serverPort": {
+                "type": "integer",
+                "description": "The HTTP listener port for the webserver."
+              }
+            },
+            "required": ["serverHost", "serverPort"]
+          }
+        },
+        "required": ["name", "data"]
+      },
+      "ingress": {
+        "type": "object",
+        "description": "Ingress configuration for external access.",
+        "properties": {
+          "host": {
+            "type": "string",
+            "description": "Hostname mapped in the ingress."
+          },
+          "className": {
+            "type": "string",
+            "description": "Ingress class name."
+          }
+        },
+        "required": ["host", "className"]
+      },
+      "image": {
+        "type": "object",
+        "description": "Container Image",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The repository/name of the Docker image."
+          },
+          "tag": {
+            "type": "string",
+            "description": "The tag of the Docker image."
+          }
+        },
+        "required": ["name", "tag"]
+      },
+      "deployment": {
+        "type": "object",
+        "description": "Deployment configuration.",
+        "properties": {
+          "replicas": {
+            "type": "integer",
+            "description": "Number of replicas for the deployment."
+          },
+          "resources": {
+            "type": "object",
+            "properties": {
+              "limits": {
+                "type": "object",
+                "properties": {
+                  "cpu": {
+                    "type": "string",
+                    "description": "Maximum amount of CPU allocated."
+                  },
+                  "memory": {
+                    "type": "string",
+                    "description": "Maximum amount of memory allocated."
+                  }
+                }
+              },
+              "requests": {
+                "type": "object",
+                "properties": {
+                  "cpu": {
+                    "type": "string",
+                    "description": "Minimum amount of CPU requested."
+                  },
+                  "memory": {
+                    "type": "string",
+                    "description": "Minimum amount of memory requested."
+                  }
+                }
+              }
+            }
+          },
+          "strategy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of deployment strategy."
+              },
+              "rollingUpdate": {
+                "type": "object",
+                "properties": {
+                  "maxSurge": {
+                    "type": "integer",
+                    "description": "The maximum number of pods that can be created over the desired number of pods."
+                  },
+                  "maxUnavailable": {
+                    "type": "integer",
+                    "description": "The maximum number of pods that can be unavailable during the update."
+                  }
+                }
+              }
+            },
+            "required": ["type", "rollingUpdate"]
+          }
+        },
+        "required": ["replicas", "resources", "strategy"]
+      },
+      "podConfig": {
+        "type": "object",
+        "description": "Pod specific configurations.",
+        "properties": {
+          "securityContext": {
+            "type": "object",
+            "properties": {
+              "runAsUser": {
+                "type": "integer",
+                "description": "The UID to run the entrypoint of the container process."
+              },
+              "runAsGroup": {
+                "type": "integer",
+                "description": "The GID to run the entrypoint of the container process."
+              }
+            },
+            "required": ["runAsUser", "runAsGroup"]
+          }
+        },
+        "required": ["securityContext"]
+      }
+    },
+    "required": ["appName", "namespace", "configmap", "ingress", "image", "deployment", "podConfig"]
+  }
+  
